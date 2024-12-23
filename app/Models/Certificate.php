@@ -19,8 +19,8 @@ class Certificate extends Model
     ];
     public $timestamps = false;
 
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class, foreignKey: 'user_id', ownerKey: 'user_id');
+        return $this->belongsTo(Student::class, foreignKey: 'user_id', ownerKey: 'user_id');
     }
 }

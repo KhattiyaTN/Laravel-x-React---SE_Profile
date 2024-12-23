@@ -22,4 +22,25 @@ class Student extends Model
         'tel',
         'facebook',
     ];
+
+    public function badges()
+    {
+        return $this->hasMany(Badge::class, foreignKey: 'user_id', localKey: 'user_id');
+    }
+
+    public function Certificates()
+    {
+        return $this->hasMany(Certificate::class, foreignKey: 'user_id', localKey: 'user_id');
+    }
+
+    public function Class_project()
+    {
+        return $this->hasMany(Class_project::class, foreignKey: 'user_id', localKey: 'user_id');
+    }
+
+    public function Soft_skill()
+    {
+        return $this->hasMany(Soft_skill::class, foreignKey: 'user_id', localKey: 'user_id');
+    }
+
 }

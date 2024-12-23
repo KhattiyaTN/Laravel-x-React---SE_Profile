@@ -19,4 +19,9 @@ class Subject extends Model
         'sub_lab',
         'sub_homework',
     ];
+
+    public function Class_project()
+    {
+        return $this->hasMany(Class_project::class, foreignKey: 'sub_id', localKey: 'sub_id');
+    }
 }

@@ -8,8 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Account;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,19 +31,29 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-
+        // รับข้อมูลจาก request
         $credentials = $request->only('username', 'password');
-
-        if (Auth::guard('web')->attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('dashboard', absolute: false));
+        // ค้นหาผู้ใช้จากฐานข้อมูล
+        $account = Account::where('username', $credentials['username'])->first();
+        // ตรวจสอบหากไม่พบบัญชีผู้ใช้
+        if (!$account) {
+            return back()->withErrors([
+                'username' => 'ไม่พบบัญชีผู้ใช้ในระบบ',
+            ]);
         }
-
-        return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
-        ]);
+        // ตรวจสอบรหัสผ่าน
+        if (! Hash::check($credentials['password'], $account->password)) {
+            return back()->withErrors([
+                'password' => 'รหัสผ่านไม่ถูกต้อง',
+            ]);
+        }
+        // ถ้ารหัสผ่านถูกต้องทำการเข้าสู่ระบบ
+        Auth::guard('web')->login($account);
+        // รีเจนเนอเรต session
+        $request->session()->regenerate();
+        // ส่งผู้ใช้ไปยังหน้า dashboard
+        return redirect()->intended(route('dashboard', absolute: false));
     }
-
 
     /**
      * Destroy an authenticated session.

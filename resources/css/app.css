@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* จัดการกับ Tag ต่างๆ ของโปรเจค*/
+@layer base {
+    
+}
+/* สร้าง Component styels ของโปรเจค*/
+@layer components {
+    
+}
+/* จัดการกับ Utilities ของระบบ*/
+@layer utilities {
+    
+}

@@ -46,7 +46,7 @@ export default function Login({ status, canResetPassword }) {
                         name="username"
                         value={data.username}
                         className="mt-1 block w-full"
-                        placeHolder="Username"
+                        placeholder="Username"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('username', e.target.value)}
@@ -62,7 +62,7 @@ export default function Login({ status, canResetPassword }) {
                         type="password"
                         name="password"
                         value={data.password}
-                        placeHolder="Password"
+                        placeholder="Password"
                         className="mt-1 block w-full"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}

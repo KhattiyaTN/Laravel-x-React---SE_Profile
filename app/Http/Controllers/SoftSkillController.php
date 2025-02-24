@@ -16,17 +16,18 @@ class SoftSkillController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $projects = Soft_skill::where('user_id', Auth::id())->get();
+        $skills = Soft_skill::where('user_id', Auth::id())->get();
 
-        return Inertia::render('TableIndex', [
-            'projects' => $projects
+        return Inertia::render('Table/TableIndex', [
+            'type' => 'soft_skill',
+            'projects' => $skills
         ]);
     }
 
     // Show the form for creating a new resource.
     public function create()
     {
-        return Inertia::render('SoftSkillFormIndex');
+        return Inertia::render('Table/SoftSkillFormIndex');
     }
 
     // Store a newly created resource in storage.

@@ -18,7 +18,8 @@ class BadgeController extends Controller
     {
         $badges = Badge::where('user_id', Auth::id())->get();
 
-        return Inertia::render('TableIndex', [
+        return Inertia::render('Table/TableIndex', [
+            'type' => 'badge',
             'badges' => $badges
         ]);
     }

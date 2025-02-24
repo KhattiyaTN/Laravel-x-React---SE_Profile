@@ -18,7 +18,8 @@ class CertificateController extends Controller
     {
         $certificats = Certificate::where('user_id', Auth::id())->get();
 
-        return Inertia::render('TableIndex', [
+        return Inertia::render('Table/TableIndex', [
+            'type' => 'certificate',
             'certificats' => $certificats
         ]);
     }

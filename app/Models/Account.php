@@ -29,4 +29,9 @@ class Account extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(Student::class, 'user_id', 'user_id');
+    }
 }

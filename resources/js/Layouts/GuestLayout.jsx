@@ -13,7 +13,7 @@ export default function GuestLayout({ children }) {
                     </Link>
                     <div className="text-center mt-6 text-headerText">
                         <h4 className="text-1xl font-bold mb-4 uppercase">Facalty of liberal artal arts and sciences</h4>
-                        <h4 className="text-1xl font-bold mb-4 uppercase">Sisaket rajbhat university</h4>
+                        <h4 className="text-1xl font-bold mb-4 uppercase">Sisaket rajabhat university</h4>
                     </div>
                 </div>
 

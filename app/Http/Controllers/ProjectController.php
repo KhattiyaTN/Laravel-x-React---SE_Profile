@@ -18,7 +18,8 @@ class ProjectController extends Controller
     {
         $projects = Class_project::where('user_id', Auth::id())->get();
 
-        return Inertia::render('TableIndex', [
+        return Inertia::render('Table/TableIndex', [
+            'type' => 'project',
             'projects' => $projects
         ]);
     }

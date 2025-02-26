@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // ตารางข้อมูลบัญชี
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id('account_id');
+            $table->id('account_id')->primary();
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('role', ['teacher', 'student'])->default('student');
@@ -39,10 +39,11 @@ return new class extends Migration
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('account_id')  
-                ->nullable()
                 ->constrained('accounts', 'account_id')  
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+                ->nullable();
             $table->string('ip_address', 45)->nullable();
+            $table->string('user_id', 10)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();

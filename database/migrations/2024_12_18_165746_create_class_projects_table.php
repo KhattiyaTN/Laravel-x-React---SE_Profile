@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('pro_description');
             $table->string('pro_type');
             $table->string('pro_stack');
-            $table->string('pro_git_url');
+            $table->string('pro_git_url')->nullable();
             $table->string('sub_id', 10);
             $table->string('user_id', 10);
 

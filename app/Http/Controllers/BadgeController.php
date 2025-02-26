@@ -16,10 +16,10 @@ class BadgeController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $badges = Badge::where('user_id', Auth::id())->get();
+        $badges = Badge::where('user_id', Auth::user()->user_id)->get();
 
         return Inertia::render('Table/TableIndex', [
-            'type' => 'badge',
+            'type' => 'Badge',
             'badges' => $badges
         ]);
     }
@@ -27,22 +27,36 @@ class BadgeController extends Controller
     // Show the form for creating a new resource.
     public function create()
     {
-        return Inertia::render('BadgeFormIndex');
+        return Inertia::render('Form/BadgeFormIndex');
     }
 
     // Store a newly created resource in storage.
     public function store(Request $request)
     {
         $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'date' => 'required|date',
+            'description' => 'required',
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = null;
+        }
 
         Badge::create([
-            'name' => $request->name,
-            'user_id' => Auth::id(),
+            'badge_name' => $request->name, 
+            'badge_type' => $request->type,
+            'badge_img_url' => $imagePath,
+            'badge_description' => $request->description,
+            'badge_date_awarded' => $request->date,
+            'user_id' => Auth::user()->user_id, 
         ]);
 
-        return redirect()->route('badge.index');
+        return redirect()->route('badge.index')->with('success', 'Badge created successfully!');
     }
 
     

@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Class_project extends Model
 {
     protected $table = 'class_projects';
-    protected $primaryKey = 'class_project_id';
+    protected $primaryKey = 'pro_id';
     protected $fillable = [
-        'pro_id', 
         'pro_name',
         'pro_img_url',
         'pro_description',
@@ -19,7 +18,6 @@ class Class_project extends Model
         'sub_id',
         'user_id'
     ];
-    public $timestamps = false;
 
     public function student()
     {

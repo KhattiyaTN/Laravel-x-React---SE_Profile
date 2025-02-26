@@ -19,7 +19,7 @@ class SoftSkillController extends Controller
         $skills = Soft_skill::where('user_id', Auth::id())->get();
 
         return Inertia::render('Table/TableIndex', [
-            'type' => 'soft_skill',
+            'type' => 'Skill',
             'projects' => $skills
         ]);
     }
@@ -27,22 +27,36 @@ class SoftSkillController extends Controller
     // Show the form for creating a new resource.
     public function create()
     {
-        return Inertia::render('Table/SoftSkillFormIndex');
+        return Inertia::render('Form/SoftSkillFormIndex');
     }
 
     // Store a newly created resource in storage.
     public function store(Request $request)
     {
         $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'date' => 'required|date',
+            'description' => 'required',
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = null;
+        }
 
         Soft_skill::create([
-            'name' => $request->name,
-            'user_id' => Auth::id(),
+            'skill_name' => $request->name, 
+            'skill_type' => $request->type,
+            'skill_img_url' => $imagePath,
+            'skill_description' => $request->description,
+            'skill_date' => $request->date,
+            'user_id' => Auth::user()->user_id, 
         ]);
 
-        return redirect()->route('softskill.index');
+        return redirect()->route('soft_skill.index')->with('success', 'Soft skill created successfully!');
     }
 
     // Display the specified resource.

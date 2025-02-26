@@ -19,7 +19,7 @@ class ProjectController extends Controller
         $projects = Class_project::where('user_id', Auth::id())->get();
 
         return Inertia::render('Table/TableIndex', [
-            'type' => 'project',
+            'type' => 'Project',
             'projects' => $projects
         ]);
     }
@@ -27,22 +27,39 @@ class ProjectController extends Controller
     // Show the form for creating a new resource.
     public function create()
     {
-        return Inertia::render('ClassProjectFormIndex');
+        return Inertia::render('Form/ProjectFormIndex');
     }
 
     // Store a newly created resource in storage.
     public function store(Request $request)
     {
         $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'stack' => 'required|string|max:255',
+            'subject' => 'required|string|max:10',
+            'description' => 'required',
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = null;
+        }
 
         Class_project::create([
-            'name' => $request->name,
-            'user_id' => Auth::id(),
+            'pro_name' => $request->name,
+            'pro_img_url' => $imagePath,
+            'pro_description' => $request->description,
+            'pro_type' => $request->type,
+            'pro_stack' => $request->stack,
+            'pro_git_url' => $request->name,
+            'sub_id' => $request->subject,
+            'user_id' => Auth::user()->user_id
         ]);
 
-        return redirect()->route('certificate.index');
+        return redirect()->route('certificate.index')->with('success', 'Certificate created successfully!');;
     }
 
     // Display the specified resource.

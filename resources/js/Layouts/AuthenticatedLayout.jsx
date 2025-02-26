@@ -14,7 +14,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
     return (
         <div className="min-h-screen bg-secondary">
-            <nav className="border-b border-primary bg-primary">
+            <nav className="sticky top-0 z-50 w-full border-b border-primary bg-primary">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-20 justify-between">
                         {/* Logo and name page */}
@@ -30,7 +30,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </header>
                             )}
                         </div>
-
                         {/* Navigation and Button */}
                         <div className='flex'>
                             {/* Navigation */}
@@ -58,10 +57,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <NavLink
                                     href={route('soft_skill.index')}
                                     active={route().current('soft_skill.index')}>
-                                    Skill
+                                    Softskill
                                 </NavLink>
                             </div>
-
                             {/* Button dropdown */}
                             <div className="hidden sm:ms-6 sm:flex sm:items-center">
                                 <div className="relative ms-3">
@@ -210,7 +208,7 @@ export default function AuthenticatedLayout({ header, children }) {
                 </div>
             </nav>
 
-            <main>{children}</main>
+            <main className='mt-10'>{children}</main>
         </div>
     );
 }

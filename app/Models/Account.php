@@ -32,6 +32,6 @@ class Account extends Authenticatable
 
     public function user()
     {
-        return $this->belongsTo(Student::class, 'user_id', 'user_id');
+        return $this->belongsTo(Student::class, foreignKey: 'user_id', ownerKey: 'user_id');
     }
 }

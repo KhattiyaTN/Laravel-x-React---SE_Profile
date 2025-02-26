@@ -14,3 +14,21 @@
 @layer utilities {
     
 }
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px; /* ความกว้างของ scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #FBA01D; /* สีพื้นหลังของ track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #821131; /* สีของ thumb */
+    border-radius: 6px; /* ความโค้งของ thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #808080; /* สีของ thumb เมื่อ hover */
+}

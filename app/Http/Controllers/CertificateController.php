@@ -19,7 +19,7 @@ class CertificateController extends Controller
         $certificats = Certificate::where('user_id', Auth::id())->get();
 
         return Inertia::render('Table/TableIndex', [
-            'type' => 'certificate',
+            'type' => 'Certificate',
             'certificats' => $certificats
         ]);
     }
@@ -27,22 +27,38 @@ class CertificateController extends Controller
     // Show the form for creating a new resource.
     public function create()
     {
-        return Inertia::render('CertificateFormIndex');
+        return Inertia::render('Form/CertificateFormIndex');
     }
 
     // Store a newly created resource in storage.
     public function store(Request $request)
     {
         $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'issued_by' => 'required|string|max:255',
+            'date' => 'required|date',
+            'description' => 'required',
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = null;
+        }
 
         Certificate::create([
-            'name' => $request->name,
-            'user_id' => Auth::id(),
+            'cerf_name' => $request->name, 
+            'cerf_type' => $request->type,
+            'cerf_img_url' => $imagePath,
+            'cerf_description' => $request->description,
+            'issued_by' => $request->issued_by,
+            'issue_date' => $request->date,
+            'user_id' => Auth::user()->user_id, 
         ]);
 
-        return redirect()->route('certificate.index');
+        return redirect()->route('certificate.index')->with('success', 'Certificate created successfully!');
     }
 
     // Display the specified resource.

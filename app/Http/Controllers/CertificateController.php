@@ -16,11 +16,11 @@ class CertificateController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $certificats = Certificate::where('user_id', Auth::id())->get();
+        $certificats = Certificate::where('user_id', Auth::user()->user_id)->get();
 
         return Inertia::render('Table/TableIndex', [
             'type' => 'Certificate',
-            'certificats' => $certificats
+            'data' => $certificats
         ]);
     }
 
@@ -64,7 +64,7 @@ class CertificateController extends Controller
     // Display the specified resource.
     public function show(Certificate $certificate)
     {
-        return Inertia::render('CertificateInfoIndex', ['certificate' => $certificate]);
+        return Inertia::render('Information/CertificateInfoIndex', ['certificate' => $certificate]);
     }
 
     

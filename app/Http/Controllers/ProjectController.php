@@ -16,11 +16,11 @@ class ProjectController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $projects = Class_project::where('user_id', Auth::id())->get();
+        $projects = Class_project::where('user_id', Auth::user()->user_id)->get();
 
         return Inertia::render('Table/TableIndex', [
             'type' => 'Project',
-            'projects' => $projects
+            'data' => $projects
         ]);
     }
 
@@ -59,7 +59,7 @@ class ProjectController extends Controller
             'user_id' => Auth::user()->user_id
         ]);
 
-        return redirect()->route('certificate.index')->with('success', 'Certificate created successfully!');;
+        return redirect()->route('Information/certificate.index')->with('success', 'Certificate created successfully!');;
     }
 
     // Display the specified resource.

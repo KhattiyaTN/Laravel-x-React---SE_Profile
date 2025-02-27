@@ -133,7 +133,7 @@ export default function BadgeFormIndex() {
                             />
                             <InputError message={errors.type} className="mt-2 text-primary" />
                         </div>
-                        {/* ออกโดย */}
+                        {/* รหัสวิชา */}
                         <div>
                             <InputLabel htmlFor="subject" value="" />
                             <TextInput
@@ -149,7 +149,7 @@ export default function BadgeFormIndex() {
                             />
                             <InputError message={errors.subject} className="mt-2 text-primary" />
                         </div>
-                        {/* วันที่ */}
+                        {/* ภาษาที่ใช้ */}
                         <div>
                             <InputLabel htmlFor="stack" value="" />
                             <TextInput
@@ -172,7 +172,7 @@ export default function BadgeFormIndex() {
                                 id="git"
                                 type="text"
                                 name="git"
-                                value={data.git}
+                                value={data.git != '' ? data.git : ''}
                                 className="mt-1 block w-full"
                                 placeholder="Github"
                                 autoComplete="git"

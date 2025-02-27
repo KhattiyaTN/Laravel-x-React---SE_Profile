@@ -16,11 +16,11 @@ class SoftSkillController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $skills = Soft_skill::where('user_id', Auth::id())->get();
+        $skills = Soft_skill::where('user_id', Auth::user()->user_id)->get();
 
         return Inertia::render('Table/TableIndex', [
             'type' => 'Skill',
-            'projects' => $skills
+            'data' => $skills
         ]);
     }
 
@@ -62,7 +62,7 @@ class SoftSkillController extends Controller
     // Display the specified resource.
     public function show(Soft_skill $soft_skill)
     {
-        return Inertia::render('SoftSkillInfoIndex', ['soft_skill' => $soft_skill]);
+        return Inertia::render('Information/SoftSkillInfoIndex', ['soft_skill' => $soft_skill]);
     }
 
     

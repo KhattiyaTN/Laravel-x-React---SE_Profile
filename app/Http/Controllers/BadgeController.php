@@ -20,7 +20,7 @@ class BadgeController extends Controller
 
         return Inertia::render('Table/TableIndex', [
             'type' => 'Badge',
-            'badges' => $badges
+            'data' => $badges
         ]);
     }
 
@@ -63,7 +63,7 @@ class BadgeController extends Controller
     // Display the specified resource.
     public function show(Badge $badge)
     {
-        return Inertia::render('BadgesInfoIndex', ['badge' => $badge]);
+        return Inertia::render('Information/BadgesInfoIndex', ['badge' => $badge]);
     }
 
     
